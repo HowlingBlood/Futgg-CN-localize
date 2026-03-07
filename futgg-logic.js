@@ -10,6 +10,7 @@
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setValue
 // @grant        GM_getValue
+// @connect      raw.githubusercontent.com
 // @connect      gitee.com
 // @run-at       document-start
 // @license MIT
@@ -23,7 +24,7 @@
             "https://gitee.com/demk3/futgg-plugin/raw/master/main.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/livetracker.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/league.json",
-            "https://gitee.com/demk3/futgg-plugin/raw/master/club.json",
+            "https://raw.githubusercontent.com/HowlingBlood/Futgg-CN-localize/refs/heads/master/club.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/nation.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/evolab.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/ggclub.json",
