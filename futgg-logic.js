@@ -21,7 +21,8 @@
         urls: [
             "https://gitee.com/demk3/futgg-plugin/raw/master/main.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/livetracker.json",
-            "https://gitee.com/demk3/futgg-plugin/raw/master/evolab.json"
+            "https://gitee.com/demk3/futgg-plugin/raw/master/evolab.json",
+            "https://gitee.com/demk3/futgg-plugin/raw/master/ggclub.json"
         ],
         cacheTime: 10800000,
         debug: true
