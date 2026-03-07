@@ -1,0 +1,19 @@
+# FUT.GG 汉化插件
+
+一键替换FUT GG汉化文本插件，无需额外操作
+
+## 前置要求
+
+Tampermonkey 或 脚本猫
+
+## 使用教程
+
+- 脚本猫
+  - 点击[链接](https://scriptcat.org/zh-CN/script-show-page/5533)或自行在脚本猫搜索FUT.GG 汉化，点击“安装脚本”，安装完成后打开FUT.GG即可使用
+- Tampermonkey
+  - 复制futgg-logic.js里面的内容
+  - 点击Tampermonkey图标 -> 点击“添加新脚本” -> 删掉输入框内所有内容，复制粘贴futgg-logic.js里面的内容到输入框内 -> Ctrl+S保存
+  - 打开FUT.GG即可使用
+
+## 已知问题
+使用脚本猫时可能会出现没有汉化的情况，刷新一次即可解决
