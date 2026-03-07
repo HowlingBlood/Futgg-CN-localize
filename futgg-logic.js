@@ -26,7 +26,8 @@
             "https://gitee.com/demk3/futgg-plugin/raw/master/club.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/nation.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/evolab.json",
-            "https://gitee.com/demk3/futgg-plugin/raw/master/ggclub.json"
+            "https://gitee.com/demk3/futgg-plugin/raw/master/ggclub.json",
+            "https://gitee.com/demk3/futgg-plugin/raw/master/rarity.json"
         ],
         cacheTime: 3600000,
         debug: true
