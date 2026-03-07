@@ -1,19 +1,19 @@
 // ==UserScript==
 // @name         FUT.GG 汉化
 // @namespace    https://gitee.com/demk3/futgg-plugin
-// @version      0.7
-// @description  FUT.GG
+// @version      0.5
+// @description  FUT.GG 汉化插件
 // @author       DeluxoMK3
+// @updateURL    https://gitee.com/demk3/futgg-plugin/raw/master/futgg-logic.js
+// @downloadURL  https://gitee.com/demk3/futgg-plugin/raw/master/futgg-logic.js
 // @match        https://www.fut.gg/*
 // @grant        GM_xmlhttpRequest
-// @connect      raw.githubusercontent.com
 // @connect      gitee.com
 // @run-at       document-start
 // ==/UserScript==
 
 (async function() {
     'use strict';
-
     
     const DICT_CONFIG = {
         urls: [
@@ -27,7 +27,6 @@
     let i18n = {};
     let regexDict = [];
 
-    
     async function initDictionary() {
         const fetchTasks = DICT_CONFIG.urls.map(url => {
             return new Promise((resolve) => {
@@ -88,8 +87,23 @@
 
             // 2. 正则匹配
             for (const item of regexDict) {
-                if (item.pattern.test(text)) {
-                    node.textContent = node.textContent.replace(text, text.replace(item.pattern, item.replacement));
+                const match = text.match(item.pattern);
+                if (match) {
+                    let replacement = item.replacement;
+                    
+                    // 嵌套翻译：尝试翻译捕获组内容
+                    // 匹配 $1, $2 等
+                    replacement = replacement.replace(/\$(\d+)/g, (m, index) => {
+                        const groupValue = match[index];
+                        if (groupValue) {
+                            const trimmedGroup = groupValue.trim();
+                            // 如果捕获组内容在字典中有翻译，则使用翻译，否则保留原样
+                            return i18n[trimmedGroup] || groupValue;
+                        }
+                        return m;
+                    });
+
+                    node.textContent = node.textContent.replace(text, replacement);
                     return;
                 }
             }

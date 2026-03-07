@@ -2,15 +2,29 @@
     "PLAYERS": "球员",
     "Upgrades": "升级",
     "Upcoming Fixtures": "即将到来的赛程",
+    "Recently Upgraded": "最近升级",
+
+    "Hide": "隐藏",
+    "View":"查看",
+    "Fixtures": "赛程",
+    "View Fixtures": "查看赛程",
+    "Hide Fixtures": "隐藏即将到来的赛程",
     "View Upcoming Fixtures": "查看即将到来的赛程",
     "Hide Upcoming Fixtures": "隐藏即将到来的赛程",
 
+    "Fantasy FC Tracker - Players": "梦幻FC追踪 - 球员",
+    "Fantasy FC Tracker - Fixtures": "梦幻FC追踪 - 赛程",
+    "Fantasy FC Tracker - Upgrades": "梦幻FC追踪 - 升级",
+    "View player upgrades for the Fantasy FC campaign": "查看梦幻FC活动的球员升级",
+    "View all fixtures for the Fantasy FC campaign": "查看梦幻FC活动的所有赛程",
+    "View all players in the Fantasy FC campaign": "查看梦幻FC活动的所有球员",
     "Fantasy FC": "梦幻FC",
     "Liverpool": "利物浦",
     "Al Nassr": "阿尔纳斯尔 / 利雅得胜利",
     "Milano FC": "AC米兰",
     "Manchester City": "曼彻斯特城",
     "Manchester Utd": "曼彻斯特联",
+    "Man Utd": "曼彻斯特联",
     "Lombardia FC": "国际米兰",
     "Real Madrid": "皇家马德里",
     "Arsenal": "阿森纳",
@@ -73,7 +87,7 @@
     "Nacional": "国民竞技",
     "Atalanta": "亚特兰大",
     
-    "Fixtures": "赛程",
+    
 
     "OVR": "总评",
     "PAC": "速度",
@@ -98,6 +112,7 @@
     "^(\\d+) defensive contributions in (\\d+) matches(.*)$": "未来$2场比赛中完成$12次防守贡献$3",
     "+1 OVR · All Roles++": "总评+1 · 所有角色++",
     "Face stat to 99": "面板属性提升至99",
+    
     "+1 PS+ (+1 PS if 2x PS+) · +1 PS": "金标+1银标+1（若已有两个金标则银标+2）",
     "5★ WF or 5★ SM": "5★逆足或5★花式动作",
     "+1 PS+ · +2 PS": "金标+1 · 银标+2",
