@@ -30,6 +30,7 @@
     let i18n = {};
     let regexDict = [];
 
+    
     async function initDictionary() {
         const now = Date.now();
         const cachedData = GM_getValue("futgg_i18n_cache");
@@ -95,43 +96,56 @@
         if (DICT_CONFIG.debug) console.log(`[FUT.GG 汉化] 字典初始化完成，总词条数: ${Object.keys(i18n).length}, 正则条数: ${regexDict.length}`);
     }
 
+    // 通用翻译函数
+    function getTranslation(text) {
+        if (!text) return null;
+        const trimmed = text.trim();
+        if (!trimmed) return null;
+
+        // 1. 精确匹配
+        if (i18n[trimmed]) {
+            return i18n[trimmed];
+        }
+
+        // 2. 正则匹配
+        for (const item of regexDict) {
+            const match = trimmed.match(item.pattern);
+            if (match) {
+                let replacement = item.replacement;
+                // 嵌套翻译捕获组
+                replacement = replacement.replace(/\$(\d+)/g, (m, index) => {
+                    const groupValue = match[index];
+                    if (groupValue) {
+                        const tg = groupValue.trim();
+                        return i18n[tg] || groupValue;
+                    }
+                    return m;
+                });
+                return replacement;
+            }
+        }
+        return null;
+    }
+
     
     function translateNode(node) {
         if (node.nodeType === Node.TEXT_NODE) {
-            const text = node.textContent.trim();
-            if (!text) return;
-
-            // 1. 精确匹配
-            if (i18n[text]) {
-                node.textContent = node.textContent.replace(text, i18n[text]);
-                return;
-            }
-
-            // 2. 正则匹配
-            for (const item of regexDict) {
-                const match = text.match(item.pattern);
-                if (match) {
-                    let replacement = item.replacement;
-                    
-                    // 嵌套翻译：尝试翻译捕获组内容
-                    // 匹配 $1, $2 等
-                    replacement = replacement.replace(/\$(\d+)/g, (m, index) => {
-                        const groupValue = match[index];
-                        if (groupValue) {
-                            const trimmedGroup = groupValue.trim();
-                            // 如果捕获组内容在字典中有翻译，则使用翻译，否则保留原样
-                            return i18n[trimmedGroup] || groupValue;
-                        }
-                        return m;
-                    });
-
-                    node.textContent = node.textContent.replace(text, replacement);
-                    return;
-                }
+            const translated = getTranslation(node.textContent);
+            if (translated) {
+                node.textContent = translated;
             }
         } else if (node.nodeType === Node.ELEMENT_NODE) {
-            
-            const ignoredTags = ['SCRIPT', 'STYLE', 'CODE', 'INPUT', 'TEXTAREA'];
+            // 翻译属性 (placeholder, title)
+            if (node.placeholder) {
+                const translated = getTranslation(node.placeholder);
+                if (translated) node.placeholder = translated;
+            }
+            if (node.title) {
+                const translated = getTranslation(node.title);
+                if (translated) node.title = translated;
+            }
+
+            const ignoredTags = ['SCRIPT', 'STYLE', 'CODE'];
             if (!ignoredTags.includes(node.tagName)) {
                 node.childNodes.forEach(translateNode);
             }
