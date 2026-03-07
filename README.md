@@ -16,7 +16,7 @@ Tampermonkey 或 脚本猫
   - 打开FUT.GG即可使用
 
 ## 已知问题
-使用脚本猫时可能会出现没有汉化的情况，刷新一次即可解决
+首次访问FUTGG时可能会出现没有汉化的情况，多刷新几次即可
 
 ## 截图
 <img width="1395" height="863" alt="image" src="https://github.com/user-attachments/assets/73e6ad52-828f-4370-a68a-aa328207592f" />
