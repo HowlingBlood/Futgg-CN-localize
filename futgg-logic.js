@@ -18,7 +18,7 @@
     const DICT_CONFIG = {
         urls: [
             "https://gitee.com/demk3/futgg-plugin/raw/master/main.json",
-            "https://gitee.com/demk3/futgg-plugin/raw/master/fantastyfc.json",
+            "https://gitee.com/demk3/futgg-plugin/raw/master/livetracker.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/evolab.json"
         ],
         debug: true
