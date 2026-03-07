@@ -24,7 +24,7 @@
             "https://gitee.com/demk3/futgg-plugin/raw/master/evolab.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/ggclub.json"
         ],
-        cacheTime: 10800000,
+        cacheTime: 3600000,
         debug: true
     };
 
