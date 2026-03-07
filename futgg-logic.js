@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         FUT.GG 汉化
 // @namespace    https://gitee.com/demk3/futgg-plugin
-// @version      0.7
+// @version      0.7.5
 // @description  FUT.GG 汉化插件
 // @author       DeluxoMK3
 // @updateURL    https://gitee.com/demk3/futgg-plugin/raw/master/futgg-logic.js
@@ -12,6 +12,7 @@
 // @grant        GM_getValue
 // @connect      gitee.com
 // @run-at       document-start
+// @license MIT
 // ==/UserScript==
 
 (async function() {
@@ -21,6 +22,9 @@
         urls: [
             "https://gitee.com/demk3/futgg-plugin/raw/master/main.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/livetracker.json",
+            "https://gitee.com/demk3/futgg-plugin/raw/master/league.json",
+            "https://gitee.com/demk3/futgg-plugin/raw/master/club.json",
+            "https://gitee.com/demk3/futgg-plugin/raw/master/nation.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/evolab.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/ggclub.json"
         ],
