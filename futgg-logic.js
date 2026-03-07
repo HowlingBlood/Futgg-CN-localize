@@ -1,13 +1,15 @@
 // ==UserScript==
 // @name         FUT.GG 汉化
 // @namespace    https://gitee.com/demk3/futgg-plugin
-// @version      0.5
+// @version      0.6
 // @description  FUT.GG 汉化插件
 // @author       DeluxoMK3
 // @updateURL    https://gitee.com/demk3/futgg-plugin/raw/master/futgg-logic.js
 // @downloadURL  https://gitee.com/demk3/futgg-plugin/raw/master/futgg-logic.js
 // @match        https://www.fut.gg/*
 // @grant        GM_xmlhttpRequest
+// @grant        GM_setValue
+// @grant        GM_getValue
 // @connect      gitee.com
 // @run-at       document-start
 // ==/UserScript==
@@ -21,6 +23,7 @@
             "https://gitee.com/demk3/futgg-plugin/raw/master/livetracker.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/evolab.json"
         ],
+        cacheTime: 10800000,
         debug: true
     };
 
@@ -28,34 +31,53 @@
     let regexDict = [];
 
     async function initDictionary() {
-        const fetchTasks = DICT_CONFIG.urls.map(url => {
-            return new Promise((resolve) => {
-                GM_xmlhttpRequest({
-                    method: "GET",
-                    url: url + "?t=" + new Date().getTime(),
-                    timeout: 10000,
-                    onload: (res) => {
-                        try {
-                            const data = JSON.parse(res.responseText);
-                            if (DICT_CONFIG.debug) console.log(`[FUT.GG 汉化] 成功加载字典: ${url}`);
-                            resolve(data);
-                        } catch (e) {
-                            console.error(`[FUT.GG 汉化] 字典格式错误 (${url}):`, e);
+        const now = Date.now();
+        const cachedData = GM_getValue("futgg_i18n_cache");
+        
+        // 1. 检查缓存是否有效
+        if (cachedData && (now - cachedData.timestamp < DICT_CONFIG.cacheTime)) {
+            i18n = cachedData.data;
+            if (DICT_CONFIG.debug) console.log(`[FUT.GG 汉化] 从本地缓存加载字典 (缓存尚余 ${Math.round((DICT_CONFIG.cacheTime - (now - cachedData.timestamp)) / 60000)} 分钟)`);
+        } else {
+            // 2. 缓存失效或不存在，从网络拉取
+            if (DICT_CONFIG.debug) console.log("[FUT.GG 汉化] 正在从网络更新字典...");
+            const fetchTasks = DICT_CONFIG.urls.map(url => {
+                return new Promise((resolve) => {
+                    GM_xmlhttpRequest({
+                        method: "GET",
+                        url: url + "?t=" + now,
+                        timeout: 10000,
+                        onload: (res) => {
+                            try {
+                                const data = JSON.parse(res.responseText);
+                                resolve(data);
+                            } catch (e) {
+                                console.error(`[FUT.GG 汉化] 字典格式错误 (${url}):`, e);
+                                resolve({});
+                            }
+                        },
+                        onerror: (err) => {
+                            console.error(`[FUT.GG 汉化] 字典请求失败 (${url}):`, err);
                             resolve({});
                         }
-                    },
-                    onerror: (err) => {
-                        console.error(`[FUT.GG 汉化] 字典请求失败 (${url}):`, err);
-                        resolve({});
-                    }
+                    });
                 });
             });
-        });
 
-        const results = await Promise.all(fetchTasks);
-        i18n = Object.assign({}, ...results);
+            const results = await Promise.all(fetchTasks);
+            i18n = Object.assign({}, ...results);
+            
+            // 3. 存储到本地缓存
+            if (Object.keys(i18n).length > 0) {
+                GM_setValue("futgg_i18n_cache", {
+                    data: i18n,
+                    timestamp: now
+                });
+                if (DICT_CONFIG.debug) console.log("[FUT.GG 汉化] 字典已更新并存入缓存");
+            }
+        }
         
-        // 预编译正则字典
+        // 4. 预编译正则字典
         regexDict = [];
         for (const key in i18n) {
             if (key.startsWith('^') && key.endsWith('$')) {
