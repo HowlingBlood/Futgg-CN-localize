@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         FUT.GG 汉化
 // @namespace    https://gitee.com/demk3/futgg-plugin
-// @version      0.7.6
+// @version      0.7.6.1
 // @description  FUT.GG 汉化插件
 // @author       DeluxoMK3
 // @updateURL    https://gitee.com/demk3/futgg-plugin/raw/master/futgg-logic.js
@@ -156,7 +156,18 @@
             }
         };
 
-        document.body.appendChild(btn);
+        // 确保 body 存在后再添加
+        if (document.body) {
+            document.body.appendChild(btn);
+        } else {
+            const bodyObserver = new MutationObserver(() => {
+                if (document.body) {
+                    document.body.appendChild(btn);
+                    bodyObserver.disconnect();
+                }
+            });
+            bodyObserver.observe(document.documentElement, { childList: true });
+        }
     }
 
     // 通用翻译函数
@@ -192,6 +203,7 @@
 
     
     function translateNode(node) {
+        if (!node) return;
         if (node.nodeType === Node.TEXT_NODE) {
             const translated = getTranslation(node.textContent);
             if (translated) {
@@ -231,29 +243,35 @@
                 font-family: "Red Hat Display", "Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif !important;
             }
         `;
-        document.head.appendChild(style);
+        document.head ? document.head.appendChild(style) : document.documentElement.appendChild(style);
     }
 
-    if (document.head) {
+    // 初始化流程
+    async function start() {
         injectStyles();
-    } else {
-        const headObserver = new MutationObserver(() => {
-            if (document.head) {
-                injectStyles();
-                headObserver.disconnect();
+        await initDictionary();
+        createUpdateButton();
+
+        const runTranslation = () => {
+            if (Object.keys(i18n).length > 0 && document.body) {
+                translateNode(document.body);
+                observer.observe(document.body, {
+                    childList: true,
+                    subtree: true
+                });
+                return true;
             }
-        });
-        headObserver.observe(document.documentElement, { childList: true });
+            return false;
+        };
+
+        if (!runTranslation()) {
+            const startObserver = new MutationObserver(() => {
+                if (runTranslation()) startObserver.disconnect();
+            });
+            startObserver.observe(document.documentElement, { childList: true });
+        }
     }
 
-    await initDictionary();
-    createUpdateButton();
-
-    if (Object.keys(i18n).length > 0) {
-        translateNode(document.body);
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-    }
+    start();
 })();
+
