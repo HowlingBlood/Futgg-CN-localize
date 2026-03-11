@@ -74,7 +74,7 @@
     "Medium": "中等",
     "Hard": "困难",
     "Easy": "简单",
-    "Recommended Positions": "推荐位置",
+    "Recommended Position": "推荐位置",
     "Number of Games": "比赛场次",
     "Number of Wins": "胜利场次",
     "Is Your Player Eligible?": "您的球员符合条件吗？",
@@ -92,13 +92,16 @@
     "Clean Sheets": "零封",
     "Online Required": "需要在线",
     "Evolution Upgrades": "进化升级",
-    "^Level #(\\d+)": "等级 $1",
     "Requirements": "要求",
     "Excluded Rarity": "排除稀有度",
     "Max Pos.": "最多位置数",
     "Max PS": "最多比赛风格数",
     "Max PS+": "最多比赛风格+数",
     "Excluded Position": "排除位置",
-    "^Max. #(\\d+)$": "最多 $1",
-    "^in #(\\d+) days$": "在 $1 天内"
+    "Analysis": "分析",
+    "Stats Boost": "属性提升",
+
+    "^Level (.*)$": "等级 $1",
+    "^Max. (.*)$": "最多 $1",
+    "^in (.*) days$": "在 $1 天内"
 }
