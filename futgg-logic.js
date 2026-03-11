@@ -38,17 +38,17 @@
     let regexDict = [];
 
     
-    async function initDictionary() {
+    async function initDictionary(force = false) {
         const now = Date.now();
         const cachedData = GM_getValue("futgg_i18n_cache");
         
-        // 1. 检查缓存是否有效
-        if (cachedData && (now - cachedData.timestamp < DICT_CONFIG.cacheTime)) {
+        // 1. 检查缓存是否有效 (除非强制更新)
+        if (!force && cachedData && (now - cachedData.timestamp < DICT_CONFIG.cacheTime)) {
             i18n = cachedData.data;
             if (DICT_CONFIG.debug) console.log(`[FUT.GG 汉化] 从本地缓存加载字典 (缓存尚余 ${Math.round((DICT_CONFIG.cacheTime - (now - cachedData.timestamp)) / 60000)} 分钟)`);
         } else {
-            // 2. 缓存失效或不存在，从网络拉取
-            if (DICT_CONFIG.debug) console.log("[FUT.GG 汉化] 正在从网络更新字典...");
+            // 2. 缓存失效或强制更新，从网络拉取
+            if (DICT_CONFIG.debug) console.log(force ? "[FUT.GG 汉化] 正在强制从网络更新字典..." : "[FUT.GG 汉化] 正在从网络更新字典...");
             const fetchTasks = DICT_CONFIG.urls.map(url => {
                 return new Promise((resolve) => {
                     GM_xmlhttpRequest({
@@ -99,8 +99,64 @@
                 }
             }
         }
-        
-        if (DICT_CONFIG.debug) console.log(`[FUT.GG 汉化] 字典初始化完成，总词条数: ${Object.keys(i18n).length}, 正则条数: ${regexDict.length}`);
+    }
+
+    // 创建强制更新按钮
+    function createUpdateButton() {
+        const btn = document.createElement('div');
+        btn.id = 'futgg-update-btn';
+        btn.innerHTML = '🔄';
+        btn.title = '强制更新汉化字典';
+        Object.assign(btn.style, {
+            position: 'fixed',
+            right: '20px',
+            bottom: '80px',
+            width: '40px',
+            height: '40px',
+            backgroundColor: '#1a1a1a',
+            color: '#fff',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            zIndex: '9999',
+            boxShadow: '0 2px 10px rgba(0,0,0,0.5)',
+            fontSize: '20px',
+            transition: 'all 0.3s ease',
+            border: '1px solid #333'
+        });
+
+        btn.onmouseover = () => btn.style.transform = 'scale(1.1)';
+        btn.onmouseout = () => btn.style.transform = 'scale(1)';
+
+        let updating = false;
+        btn.onclick = async () => {
+            if (updating) return;
+            updating = true;
+            btn.style.opacity = '0.5';
+            btn.innerHTML = '⌛';
+            
+            try {
+                await initDictionary(true);
+                translateNode(document.body);
+                btn.innerHTML = '✅';
+                setTimeout(() => {
+                    btn.innerHTML = '🔄';
+                    btn.style.opacity = '1';
+                    updating = false;
+                }, 2000);
+            } catch (e) {
+                btn.innerHTML = '❌';
+                setTimeout(() => {
+                    btn.innerHTML = '🔄';
+                    btn.style.opacity = '1';
+                    updating = false;
+                }, 2000);
+            }
+        };
+
+        document.body.appendChild(btn);
     }
 
     // 通用翻译函数
@@ -191,6 +247,7 @@
     }
 
     await initDictionary();
+    createUpdateButton();
 
     if (Object.keys(i18n).length > 0) {
         translateNode(document.body);
