@@ -1,10 +1,25 @@
 {
+    "Log In":"登入",
+    "Email address or username":"邮箱地址或用户名",
+    "Password":"密码",
+    "Continue":"继续",
+    "Forgot password?":"忘记密码？",
+    "Don't have an account?":"没有账户？",
+    "Sign up":"注册",
+    "Set a new password":"设置新密码",
+
     "Players": "球员",
     "Squad Builder": "阵容构建器",
     "Objectives": "目标",
     "Evo Lab": "进化实验室",
     "GG Club": "GG俱乐部",
     "Type \"/\" to search...": "按 \"/\" 键搜索...",
+
+    "Trending":"热门球员",
+    "Evos":"热门进化球员",
+    "Recent":"最新球员",
+    "Upgraded":"已升级球员",
+    "View all":"查看全部",
 
     "Camping Squads": "活动阵容",
     "News": "新闻",
@@ -395,5 +410,12 @@
     "Chemistry Style": "默契风格",
     "Invalid":"无效",
     "Squad Builder Role": "阵容组建角色",
-    "* You can turn off Squad Builder settings completely using the Card Settings button above the card if you wish to always have them off.": "* 如果你希望始终关闭阵容组建设置，可以使用上方的卡片设置按钮完全关闭它们。"
+    "* You can turn off Squad Builder settings completely using the Card Settings button above the card if you wish to always have them off.": "* 如果你希望始终关闭阵容组建设置，可以使用上方的卡片设置按钮完全关闭它们。",
+    
+    "We've upgraded our login system. Enter the code sent to ":"我们升级了我们的登录系统。请输入发送到",
+    " to set a new password.":"的验证码以设置新密码。",
+    "Verification code":"验证码",
+    "New password":"新密码",
+    "Confirm password":"确认密码",
+    "Set password":"设置密码"
 }
