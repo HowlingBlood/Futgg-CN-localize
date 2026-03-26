@@ -1,12 +1,13 @@
 // ==UserScript==
-// @name         FUT.GG 汉化
+// @name         FUT.GG & FUTBIN 汉化
 // @namespace    https://gitee.com/demk3/futgg-plugin
-// @version      0.7.6.1
-// @description  FUT.GG 汉化插件
+// @version      0.8.0
+// @description  FUT.GG & FUTBIN 汉化插件
 // @author       DeluxoMK3
 // @updateURL    https://gitee.com/demk3/futgg-plugin/raw/master/futgg-logic.js
 // @downloadURL  https://gitee.com/demk3/futgg-plugin/raw/master/futgg-logic.js
 // @match        https://www.fut.gg/*
+// @match        https://www.futbin.com/*
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setValue
 // @grant        GM_getValue
@@ -28,7 +29,8 @@
             "https://gitee.com/demk3/futgg-plugin/raw/master/nation.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/evolab.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/ggclub.json",
-            "https://gitee.com/demk3/futgg-plugin/raw/master/rarity.json"
+            "https://gitee.com/demk3/futgg-plugin/raw/master/rarity.json",
+            "https://gitee.com/demk3/futgg-plugin/raw/master/futbin.json",
         ],
         cacheTime: 3600000,
         debug: true

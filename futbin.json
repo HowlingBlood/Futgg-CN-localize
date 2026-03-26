@@ -1,0 +1,25 @@
+{
+    "Summary": "概览",
+    "Stats": "属性",
+    "Market": "市场",
+    "Version": "版本",
+    "RAT":"总评",
+    "Rating":"总评",
+    "POS":"位置",
+    "FUTBIN Rating":"FUTBIN评分",
+    "SM & WF":"花式和逆足",
+    "FOOT":"惯用脚",
+    "SM":"花式",
+    "WF":"逆足",
+    "B.Type":"身体模型",
+
+    "Player Stats":"球员数据",
+    "Evolution Builder":"进化构建器",
+    "^#(\\d+) years old$":"$1岁",
+    "Total Chem. style added:":"总化学风格加成：",
+    "Base Stats":"基础数值",
+    "IGS":"小数据总值",
+    "Top 3 community voted":"社区投票前三",
+    "*Provides 1 additional chemistry point to any league":"*为所有联赛提供1点额外的化学"
+
+}

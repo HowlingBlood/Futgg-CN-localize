@@ -25,6 +25,8 @@
     "+1 PS+ and +2 PS": "金标+1和银标+2",
     "+1 PS+ and +1 PS": "金标+1和银标+1",
     "+1 PS+ and +1 OVR": "金标+1和总评+1",
+
+
     "^(\\d+) points in next (\\d+)(.*)$": "未来$2场联赛中获得$1分$3",
     "^(\\d+) club goals in next (\\d+) matches(.*)$": "未来$2场联赛中俱乐部累计攻入$10球$3",
     "^(\\d+) goal or assist in (\\d+) matches (.*)$": "未来$2场联赛中完成$1次进球或助攻$3",
@@ -41,7 +43,10 @@
     "+1 PS+ · +2 PS": "金标+1 · 银标+2",
     "+1 PS+ · +1 OVR": "金标+1 · 总评+1",
     "+1 OVR": "总评+1",
-    "+1 PS+ · +1 PS": "金标+1 · 银标+1"
+    "+1 PS+ · +1 PS": "金标+1 · 银标+1",
 
-    
+    "Upgrades & Requirements": "升级和要求",
+    "UPGRADE": "升级",
+    "Called up to the World Cup": "入选世界杯大名单",
+    "+1 PS+, +1 OVR All Roles++": "金标+1，总评+1，所有角色++"
 }
