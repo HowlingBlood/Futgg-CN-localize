@@ -1,4 +1,10 @@
 {
+    "Popular":"热门球员",
+    "Latest Promo":"最新促销活动",
+    "New players":"新球员",
+    "Latest SBCs":"最新SBC",
+    "Cheapest by rating":"同评分最低价",
+
     "Summary": "概览",
     "Stats": "属性",
     "Market": "市场",
@@ -15,7 +21,7 @@
 
     "Player Stats":"球员数据",
     "Evolution Builder":"进化构建器",
-    "^#(\\d+) years old$":"$1岁",
+    "^\\(.*) years old$":"$1岁",
     "Total Chem. style added:":"总化学风格加成：",
     "Base Stats":"基础数值",
     "IGS":"小数据总值",
