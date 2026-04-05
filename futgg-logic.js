@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         FUT.GG & FUTBIN 汉化
 // @namespace    https://gitee.com/demk3/futgg-plugin
-// @version      0.8.2
+// @version      0.8.3
 // @description  FUT.GG & FUTBIN 汉化插件
 // @author       DeluxoMK3
 // @updateURL    https://gitee.com/demk3/futgg-plugin/raw/master/futgg-logic.js
