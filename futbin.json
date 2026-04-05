@@ -21,7 +21,7 @@
 
     "Player Stats":"球员数据",
     "Evolution Builder":"进化构建器",
-    "^\\(.*) years old$":"$1 岁",
+    "^#(\\d+) years old$":"$1 岁",
     "Total Chem. style added:":"总化学风格加成：",
     "Base Stats":"基础数值",
     "IGS":"小数据总值",
