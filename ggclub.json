@@ -14,6 +14,8 @@
     "Share": "分享",
     "Copy": "复制链接",
     "Download Share Asset": "下载分享图像",
+    "Download Squad Asset": "下载阵容图像",
+    "View Squad": "查看阵容",
     "Games Played": "比赛场次",
     "Goals": "进球数",
     "Assists": "助攻数",
@@ -80,5 +82,8 @@
     "Private": "私密",
     "Choose whether your club is visible to other users. You can change this at any time.": "选择您的俱乐部是否对其他用户可见。您可以随时更改此设置。",
     "Delete Account": "删除账户",
-    "Delete your account and all your data. This action is irreversible.": "删除您的账户和所有数据。此操作不可逆转。"
+    "Delete your account and all your data. This action is irreversible.": "删除您的账户和所有数据。此操作不可逆转。",
+
+    "Hidden Gems": "隐藏的宝石",
+    "These are the tradeable cards in your club that sell for far more than a card of their rating and rarity normally does, sorted by how much profit each one makes you.": "这些是您俱乐部中可交易的卡片，其售价远高于其评级和稀有度的正常售价，按每张卡片为您带来的利润多少进行排序。"
 }

@@ -31,14 +31,16 @@
             "https://gitee.com/demk3/futgg-plugin/raw/master/ggclub.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/rarity.json",
             "https://gitee.com/demk3/futgg-plugin/raw/master/futbin.json",
-            "https://gitee.com/demk3/futgg-plugin/raw/master/text-evo.json"
+            
         ],
         cacheTime: 3600000,
         debug: true
     };
 
+    
     let i18n = {};
     let regexDict = [];
+    let translationCache = new Map();
 
     
     async function initDictionary(force = false) {
@@ -75,9 +77,10 @@
                 });
             });
 
-            const results = await Promise.all(fetchTasks);
+            const results = await Promise.allSettled(fetchTasks);
             i18n = Object.assign({}, ...results);
-            
+            translationCache.clear(); 
+
             // 3. 存储到本地缓存
             if (Object.keys(i18n).length > 0) {
                 GM_setValue("futgg_i18n_cache", {
@@ -142,6 +145,7 @@
             
             try {
                 await initDictionary(true);
+                document.querySelectorAll('[data-i18n-done]').forEach(el => delete el.dataset.i18nDone);
                 translateNode(document.body);
                 btn.innerHTML = '✅';
                 setTimeout(() => {
@@ -175,21 +179,24 @@
 
     // 通用翻译函数
     function getTranslation(text) {
-        if (!text) return null;
-        const trimmed = text.trim();
-        if (!trimmed) return null;
+    if (!text) return null;
+    const trimmed = text.trim();
+    if (!trimmed) return null;
 
-        // 1. 精确匹配
-        if (i18n[trimmed]) {
-            return i18n[trimmed];
-        }
+    // 命中缓存直接返回
+    if (translationCache.has(trimmed)) return translationCache.get(trimmed);
 
+    let result = null;
+
+    // 1. 精确匹配
+    if (i18n[trimmed]) {
+        result = i18n[trimmed];
+    } else {
         // 2. 正则匹配
         for (const item of regexDict) {
             const match = trimmed.match(item.pattern);
             if (match) {
                 let replacement = item.replacement;
-                // 嵌套翻译捕获组
                 replacement = replacement.replace(/\$(\d+)/g, (m, index) => {
                     const groupValue = match[index];
                     if (groupValue) {
@@ -198,37 +205,48 @@
                     }
                     return m;
                 });
-                return replacement;
+                result = replacement;
+                break;
             }
         }
-        return null;
     }
+
+    // 无论是否找到翻译，都写入缓存（null 也缓存，避免重复遍历未命中的字符串）
+    translationCache.set(trimmed, result);
+    return result;
+}
 
     
     function translateNode(node) {
-        if (!node) return;
-        if (node.nodeType === Node.TEXT_NODE) {
-            const translated = getTranslation(node.textContent);
-            if (translated) {
-                node.textContent = translated;
-            }
-        } else if (node.nodeType === Node.ELEMENT_NODE) {
-            // 翻译属性 (placeholder, title)
-            if (node.placeholder) {
-                const translated = getTranslation(node.placeholder);
-                if (translated) node.placeholder = translated;
-            }
-            if (node.title) {
-                const translated = getTranslation(node.title);
-                if (translated) node.title = translated;
-            }
-
-            const ignoredTags = ['SCRIPT', 'STYLE', 'CODE'];
-            if (!ignoredTags.includes(node.tagName)) {
-                node.childNodes.forEach(translateNode);
-            }
+    if (!node) return;
+    if (node.nodeType === Node.TEXT_NODE) {
+        const translated = getTranslation(node.textContent);
+        if (translated) {
+            node.textContent = translated;
         }
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+        // 跳过已翻译的子树
+        if (node.dataset.i18nDone === '1') return;
+
+        // 翻译属性 (placeholder, title)
+        if (node.placeholder) {
+            const translated = getTranslation(node.placeholder);
+            if (translated) node.placeholder = translated;
+        }
+        if (node.title) {
+            const translated = getTranslation(node.title);
+            if (translated) node.title = translated;
+        }
+
+        const ignoredTags = ['SCRIPT', 'STYLE', 'CODE'];
+        if (!ignoredTags.includes(node.tagName)) {
+            node.childNodes.forEach(translateNode);
+        }
+
+        // 子树处理完毕后打标记
+        node.dataset.i18nDone = '1';
     }
+}
 
     const observer = new MutationObserver((mutations) => {
         if (Object.keys(i18n).length === 0) return;
