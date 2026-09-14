@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         FUT.GG & FUTBIN 汉化
 // @namespace    https://gitee.com/demk3/futgg-plugin
-// @version      0.8.4
+// @version      0.8.5
 // @description  FUT.GG & FUTBIN 汉化插件
 // @author       DeluxoMK3
 // @updateURL    https://gitee.com/demk3/futgg-plugin/raw/master/futgg-logic.js
@@ -12,7 +12,7 @@
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @connect      raw.githubusercontent.com
-// @connect      gitee.com
+// @connect      raw.giteeusercontent.com
 // @run-at       document-start
 // @license MIT
 // ==/UserScript==
@@ -22,16 +22,15 @@
     
     const DICT_CONFIG = {
         urls: [
-            "https://gitee.com/demk3/futgg-plugin/raw/master/main.json",
-            "https://gitee.com/demk3/futgg-plugin/raw/master/livetracker.json",
-            "https://gitee.com/demk3/futgg-plugin/raw/master/league.json",
+            "https://raw.giteeusercontent.com/demk3/futgg-plugin/raw/master/main.json",
+            "https://raw.giteeusercontent.com/demk3/futgg-plugin/raw/master/livetracker.json",
+            "https://raw.giteeusercontent.com/demk3/futgg-plugin/raw/master/league.json",
             "https://raw.githubusercontent.com/HowlingBlood/Futgg-CN-localize/refs/heads/master/club.json",
-            "https://gitee.com/demk3/futgg-plugin/raw/master/nation.json",
-            "https://gitee.com/demk3/futgg-plugin/raw/master/evolab.json",
-            "https://gitee.com/demk3/futgg-plugin/raw/master/ggclub.json",
-            "https://gitee.com/demk3/futgg-plugin/raw/master/rarity.json",
-            "https://gitee.com/demk3/futgg-plugin/raw/master/futbin.json",
-            
+            "https://raw.giteeusercontent.com/demk3/futgg-plugin/raw/master/nation.json",
+            "https://raw.giteeusercontent.com/demk3/futgg-plugin/raw/master/evolab.json",
+            "https://raw.giteeusercontent.com/demk3/futgg-plugin/raw/master/ggclub.json",
+            "https://raw.giteeusercontent.com/demk3/futgg-plugin/raw/master/rarity.json",
+            "https://raw.giteeusercontent.com/demk3/futgg-plugin/raw/master/futbin.json",
         ],
         cacheTime: 3600000,
         debug: true
